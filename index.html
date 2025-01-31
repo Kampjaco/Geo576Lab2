@@ -58,6 +58,7 @@
         const simpleMarkerSymbol = {
           type: "simple-marker",
           color: [63,161,73],
+          style: "diamond",
           outline: {
             color: [255,255,255],
             width: 1
@@ -73,12 +74,24 @@
         //Add point to graphicsLayer
         graphicsLayer.add(pointGraphic);
 
+        //Define popup for usaeduLayer
+        const popupEduusa = {
+          "title": "EDUs",
+          "content": "<b>Name:</b> {INSTNM}<br> <b>Total Enrollment:</b> {TOT_ENROLL}<br><b>Website:</b> <a href='{WEBADDR}'>{WEBADDR} <br>"
+        }
+
         //Adds USA universities and colleges feature layer to map
         const usaeduLayer = new FeatureLayer({
-        url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer"
+        url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
+
+         //Adds popup for usaeduLayer
+         outFields: ["INSTNM","TOT_ENROLL","WEBADDR"],
+         popupTemplate: popupEduusa
         });
+
         map.add(usaeduLayer);
-              }
+
+        }
     );
       
  </script>
