@@ -28,8 +28,10 @@
       "esri/views/MapView",
       "esri/Graphic",
       "esri/layers/GraphicsLayer",
-      "esri/layers/FeatureLayer"
-    ], function(esriConfig, Map, MapView, Graphic, GraphicsLayer, FeatureLayer) {
+      "esri/layers/FeatureLayer",
+      "esri/geometry/Polyline",
+      "esri/geometry/Polygon"
+    ], function(esriConfig, Map, MapView, Graphic, GraphicsLayer, FeatureLayer, Polyline, Polygon) {
         esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurFOkIusOF1VpY7XrI8On8rT97tNiNbtgFmCtwOvhjfFhOLXkYP94N4hIcMdSHeUciUtB2IWQ_2YVJSdXzi_IWhmWdynaqt-VAFxx-m7QPXP1DZmxEPt6TyPJFH2W9SBFrsQHr3ANSUDx_agoBAH_kBJgf2rPafNi3Gymbl1Y9ob936ZFAViwcKE2ho6AMyipqnfeD2Q6xy6isdIWOpV36ZvShZri_FF0fkzhr7ztkfsZAT1_bPmqfOUP";   
         
         const map = new Map({ 
@@ -65,14 +67,89 @@
           }
         };
 
+        //Defining popup properties
+        const popupTemplate = {
+          title: "{Name}",
+          content: "{Description}"
+        }
+        const attributes = {
+          Name: "Jolly Green Giant Statue",
+          Description: "A large statue of the Jolly Green Giant.  You may recognize him from the frozen veggie brand Green Giant!"
+        }
+
         //Create the point
         const pointGraphic = new Graphic ({
           geometry: point,
-          symbol: simpleMarkerSymbol
+          symbol: simpleMarkerSymbol,
+
+          //Adding popup properties
+          attributes: attributes,
+          popupTemplate: popupTemplate
         });
 
         //Add point to graphicsLayer
         graphicsLayer.add(pointGraphic);
+
+        
+        // Define the polyline geometry
+        const polyline = new Polyline({
+          paths: [
+            [-94.0964, 43.6521], // Point 1
+            [-94.0963, 43.6512], // Point 2
+            [-94.0954, 43.6511], // Point 3
+            [-94.0956, 43.6519], // Point 4
+            [-94.0958, 43.6521],  // Point 5
+            [-94.0964, 43.6521]  //Point 6
+          ],
+          spatialReference: { wkid: 4326 } // WGS 84
+        });
+
+        //Define polyline symbol
+        const polylineSymbol = {
+          type: "polyline",
+          color: [26, 119, 40],
+          width: 2
+        };
+
+        //Create the graphic
+        const polylineGraphic = new Graphic({
+          geometry: polyline,
+          symbol: polylineSymbol
+        });
+
+        //Add polyline to graphics layer
+        graphicsLayer.add(polylineGraphic);
+
+      const polygon = new Polygon({
+        rings: [
+          [-94.0945, 43.6530], 
+          [-94.0943, 43.6522],
+          [-94.0938, 43.6520],
+          [-94.0940, 43.6526],
+          [-94.0945, 43.6530]  
+        ],
+        spatialReference: { wkid: 4326 }
+      });
+
+        // Define the polygon symbol (style)
+        const polygonSymbol = {
+          type: "simple-fill",
+          color: [51, 102, 204, 0.4], // Blue with transparency
+          outline: {
+            color: [0, 0, 0],
+            width: 2
+          }
+        };
+
+        // Create the Graphic
+        const polygonGraphic = new Graphic({
+          geometry: polygon,
+          symbol: polygonSymbol
+        });
+
+        // Add the polygon to the GraphicsLayer
+        graphicsLayer.add(polygonGraphic);
+
 
         //Define popup for usaeduLayer
         const popupEduusa = {
