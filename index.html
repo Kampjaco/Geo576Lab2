@@ -168,14 +168,26 @@
 
         map.add(usaeduLayer);
 
+        //Adds airport icon from Github page
+        const airportRenderer = {
+          "type": "simple",
+          "symbol": {
+            "type": "picture-marker",
+            "url": "https://sounny.github.io/agol/outline_local_airport_black_24dp.png",
+            "width": "18px",
+            "height": "18px"
+          }
+        }
+
         //Add USA airports feature layer
         const airportsLayer = new FeatureLayer({
-          url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports_JacobKampf/FeatureServer"
+          url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports_JacobKampf/FeatureServer",
+          renderer: airportRenderer
         });
 
         map.add(airportsLayer);
 
-        }
+      }
         
     );
       
