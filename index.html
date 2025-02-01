@@ -120,16 +120,16 @@
         //Add polyline to graphics layer
         graphicsLayer.add(polylineGraphic);
 
-      const polygon = new Polygon({
-        rings: [
-          [-94.0945, 43.6530], 
-          [-94.0943, 43.6522],
-          [-94.0938, 43.6520],
-          [-94.0940, 43.6526],
-          [-94.0945, 43.6530]  
-        ],
-        spatialReference: { wkid: 4326 }
-      });
+        const polygon = new Polygon({
+          rings: [
+            [-94.0945, 43.6530], 
+            [-94.0943, 43.6522],
+           [-94.0938, 43.6520],
+           [-94.0940, 43.6526],
+            [-94.0945, 43.6530]  
+          ],
+          spatialReference: { wkid: 4326 }
+        });
 
         // Define the polygon symbol (style)
         const polygonSymbol = {
@@ -168,7 +168,15 @@
 
         map.add(usaeduLayer);
 
+        //Add USA airports feature layer
+        const airportsLayer = new FeatureLayer({
+          url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports_JacobKampf/FeatureServer"
+        });
+
+        map.add(airportsLayer);
+
         }
+        
     );
       
  </script>
