@@ -209,6 +209,48 @@
 
         map.add(airportsLayer);
 
+        //Adds helipad icon from Github page
+        const helipadRenderer = {
+          "type": "simple",
+          "symbol": {
+            "type": "picture-marker",
+            "url": "https://kampjaco.github.io/Geo576Lab2/star_24dp_000000.png",
+            "width": "18px",
+            "height": "18px"
+          }
+        };
+
+        //const to make the helipad labels
+        const helipadLabels = {
+          symbol: {
+            type: "text",
+            color: "#FFFFFF",
+            haloColor: "#FFA500",
+            haloSize: "2px",
+            font: {
+              size: "12px",
+              family: "Noto Sans",
+              style: "italic",
+              weight: "normal"
+            }
+          },
+          labelPlacement: "above-center",
+          labelExpressionInfo: {
+            expression: "$feature.Fac_Name"
+          }
+        };
+
+        //Add USA helipads feature layer
+        const helipadsLayer = new FeatureLayer({
+          url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports_JacobKampf/FeatureServer",
+          renderer: helipadRenderer,
+          definitionExpression: "Fac_Type = 'HELIPORT'",
+          labelingInfo: [helipadLabels]
+        });
+
+        //Add helipadsLayer to map
+        map.add(helipadsLayer);
+
       }
         
     );
